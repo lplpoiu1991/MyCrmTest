@@ -1,6 +1,7 @@
 package com.sekai.settings.test;
 
 import com.sekai.crm.utils.DateTimeUtil;
+import com.sekai.crm.utils.MD5Util;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,16 @@ public class test1 {
     }
     @Test
     public  void test3(){
+//        String ip = "192.168.1.1";
+//        String allowIps = "192.168.1.1,192.168.1.2";
+//        if(allowIps.contains(ip)){
+//            System.out.println("允许登录");
+//        }else{
+//            System.out.println("IP受限");
+//        }
+         String password = "2115034lp.";
+        String mypwd = MD5Util.getMD5(password);
+        System.out.println(mypwd);
 
     }
 
