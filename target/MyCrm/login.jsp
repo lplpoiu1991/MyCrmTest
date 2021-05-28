@@ -6,9 +6,13 @@ Time: 16:59
 To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
+    <base href="<%=basePath%>">
     <meta charset="UTF-8">
     <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
@@ -35,16 +39,18 @@ To change this template use File | Settings | File Templates.
                 $("#msg").html("用户名密码不能为空");
                 return false;
             }
+
             $.ajax({
-                url: "",
+
+                url: "settings/user/login.do",
                 data: {
                     "loginAct": loginAct,
                     "loginPwd": loginPwd
                 },
-                type: "",
-                dataType: "",
+                type: "post",
+                dataType: "json",
                 success: function (data) {
-                    if (data.sucess) {
+                    if (data.success) {
                         window.location.href = "workbench/index.html";
                     }else{
                         $("#msg").html(data.msg);
