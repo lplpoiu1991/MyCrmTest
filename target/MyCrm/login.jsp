@@ -7,13 +7,12 @@ To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String base = request.getContextPath()+"/";
-    String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+base;
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="<%=url%>">
+    <base href="<%=basePath%>">
     <meta charset="UTF-8">
     <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
@@ -43,13 +42,13 @@ To change this template use File | Settings | File Templates.
 
             $.ajax({
 
-                url: "settings/user/save.do",
+                url: "settings/user/login.do",
                 data: {
                     "loginAct": loginAct,
                     "loginPwd": loginPwd
                 },
-                type: "",
-                dataType: "",
+                type: "post",
+                dataType: "json",
                 success: function (data) {
                     if (data.success) {
                         window.location.href = "workbench/index.html";

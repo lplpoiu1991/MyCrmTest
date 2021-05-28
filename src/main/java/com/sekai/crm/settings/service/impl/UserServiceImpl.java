@@ -8,6 +8,7 @@ import com.sekai.crm.utils.DateTimeUtil;
 import com.sekai.crm.utils.SqlSessionUtil;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
     private UserDao userdao = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
@@ -15,7 +16,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String loginAct, String loginPwd, String ip) throws LoginException {
-        HashMap<String, String> map = new HashMap<>();
+
+        Map<String, String> map = new HashMap<String,String>();
         map.put("loginAct", loginAct);
         map.put("loginPwd", loginPwd);
         User user = userdao.login(map);
@@ -29,6 +31,12 @@ public class UserServiceImpl implements UserService {
              throw  new LoginException("账号失效");
          }
 
+        String lockState = user.getLockState();
+        if("0".equals(lockState)){
+
+            throw new LoginException("账号已锁定");
+
+        }
 
         String allowIps = user.getAllowIps();
         //if(allowIps != null && allowIps!="");

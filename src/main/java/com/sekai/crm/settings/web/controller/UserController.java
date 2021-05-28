@@ -20,7 +20,7 @@ public class UserController extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("进入到用户控制器");
         String path = request.getServletPath();
-        if ("/settings/login.do".equals(path)) {
+        if ("/settings/user/login.do".equals(path)) {
             login(request, response);
 
         } else if ("/settings/user.xxx.do".equals(path)) {
@@ -38,6 +38,7 @@ public class UserController extends HttpServlet {
         UserService us = (UserService) ServiceFactory.getService(new UserServiceImpl());
 
         try {
+            System.out.println("进入111");
             User user = us.login(loginAct, loginPwd, ip);
             request.getSession().setAttribute("user", user);
             PrintJson.printJsonFlag(response,true);
